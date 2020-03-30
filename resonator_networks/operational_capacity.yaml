@@ -1,0 +1,202 @@
+---
+# This file contains measured operational capacities for Resonator Networks
+# Important considerations for reproducing these numbers:
+# 1) These were measured when all codebooks are the same size. I list the
+#    codebook sizes, so M_{max} will be this number raised to the F^th power
+# 2) These were measured with p=0.99, and k=0.001M. Therefore, when the algorith
+#    is limited to at most k iterations, it should have accuracy 0.99.
+# 3) In estimating the point at which accuracy is precisely 0.99, we often have
+#    to interpolate between integer-valued codebook sizes. Suppose the accuracy
+#    with codebooks of size 55 is 0.9932, while the accuracy with codebooks of
+#    size 56 is 0.9881. In this case the capacity is some real number
+#    between 55 and 56. The precise value is determined from larger
+#    context -- I calculate an accuracy curve evaluated at (for instance)
+#    52, 53, 54, 55, 56, 57, 58, and then use that curve to interpolate a
+#    specific codebook size between 55 and 56.
+
+# load this file into a Python dictionary by invoking
+# yaml.load(<fileobj>, Loader=yaml.FullLoader)
+
+Resonator Networks w/ OP Weights:
+  2-factors:
+    1000: 340
+    1250: 467
+    1400: 540
+    1500: 600
+    1600: 640
+    1750: 710
+    2000: 828
+    2250: 950
+    2500: 1087
+    2750: 1210
+    3000: 1360
+    3500: 1619
+  3-factors:
+    1500: 79
+    1750: 104
+    2000: 128
+    2250: 150
+    2600: 175
+    3000: 205
+    3500: 238
+    4000: 267.5
+    4500: 296
+    5000: 323
+    5500: 347.3
+    6000: 373.2
+    7000: 421
+  4-factors:
+    2000: 41
+    2500: 49
+    3000: 56
+    3500: 62
+    4000: 67
+    4250: 70
+    5000: 76
+    5500: 80.5
+    6000: 84
+    6500: 88
+    7000: 92
+    7500: 95
+    8000: 98.48
+    9000: 103.9
+    10000: 109.5
+  5-factors:
+    3000: 19.39
+    3500: 22.3
+    4000: 24.1
+    4500: 25.5
+    5000: 27.15
+    5500: 28.6
+    6000: 30.0
+    6500: 31.0
+    7000: 32.1
+    8000: 34.3
+    9000: 36.15
+    10000: 38.08
+  6-factors:
+    5000: 13.36
+    5500: 14.25
+    6000: 15.05
+    6500: 15.6
+    7000: 16.19
+    7500: 16.74
+    8000: 17.3
+    8500: 17.87
+    9000: 18.26
+    9500: 18.76
+    10000: 19.17
+    12000: 20.72
+  7-factors:
+    7000: 9.46
+    7500: 10.13
+    8000: 10.65
+    8500: 11.08
+    9000: 11.39
+    9500: 11.71
+    10000: 12.04
+
+# We also provide a few operational capacity values for the
+# OLS variant of Resonator Networks and the benchmark algorithms:
+
+Resonator Networks w/ OLS Weights:
+  3-factors:
+    1500: 99.3
+    1750: 122.38
+    2000: 141.5
+    2250: 160
+  4-factors:
+    2000: 41.1
+    2500: 49.5
+    3000: 56
+
+Projected Gradient Descent:
+  3-factors:
+    1500: 21.5
+    1750: 23.02
+    2000: 24.89
+    2250: 26.3
+  4-factors:
+    1500: 8.8
+    1750: 9.25
+    2500: 10.25
+    3000: 11.2
+
+Iterative Soft Thresholding:
+  3-factors:
+    1500: 23
+    1750: 25.6
+    2000: 27.1
+    2250: 29.2
+  4-factors:
+    1500: 7.0
+    1750: 7.3
+    2500: 8.6
+    3000: 9.2
+
+Fast Iterative Soft Thresholding:
+  3-factors:
+    1500: 23.5
+    1750: 25.8
+    2000: 27.2
+    2250: 30.2
+  4-factors:
+    1500: 7.2
+    1750: 7.5
+    2500: 8.9
+    3000: 9.4
+
+Multiplicative Weights:
+  3-factors:
+    1500: 21.5
+    1750: 23.5
+    2000: 25
+    2250: 26.5
+  4-factors:
+    1500: 8.3
+    1750: 8.9
+    2500: 10.2
+    3000: 10.8
+
+Map Seeking Circuits:
+  3-factors:
+    1500: 22.4
+    1750: 23.9
+    2000: 25.28
+    2250: 27.5
+  4-factors:
+    1500: 8.45
+    1750: 8.8
+    2500: 10.15
+    3000: 11.15
+
+Alternating Least Squares:
+  3-factors:
+    1500: 23.7
+    1750: 25.5
+    2000: 28
+    2250: 30
+  4-factors:
+    1500: 7.5
+    1750: 8.5
+    2500: 9.25
+    3000: 9.7
+
+# For the benchmarks, these were the algorithm parameters I used to generate
+# the numbers above:
+# PARAMS_FOR_SIM = \
+#   {'Alternating Least Squares': {'convergence_tol': 1e-4},
+#    'Multiplicative Weights': {'stepsize': 0.3, 'convergence_tol': 1e-3},
+#    'Map Seeking Circuits': {'stepsize': 0.1, 'convergence_tol': 1e-5,
+#                             'clipping_threshold': 1e-5},
+#    'Projected Gradient Descent': {'stepsize': 0.01, 'convergence_tol': 1e-5},
+#    'Iterative Soft Thresholding': {'sparsity_weight': 0.01,
+#                                    'convergence_tol': 1e-4},
+#    'Fast Iterative Soft Thresholding': {'sparsity_weight': 0.01,
+#                                         'convergence_tol': 1e-4}}
+
+# Also worth noting that when multiple composites are superimposed, the
+# capacity for Resonator Circuits is degraded by a
+# multiplicative factor \alpha which is independent of N. I don't include these
+# capacities here because it is not a focus of the paper, but you can contact
+# me with questions and some numbers from my simulations.
